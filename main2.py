@@ -97,7 +97,7 @@ async def kick(ctx, user: discord.Member):
 @bot.event
 async def on_message(message):
     if not message.author.bot: 
-        bannedwrd = ["Amk", "siktir", "sik", "yarrak", "am"]
+        bannedwrd = ["küfür1", "küfür2", "küfür3"]
 
         for word in bannedwrd:
             if word in message.content.lower(): 
