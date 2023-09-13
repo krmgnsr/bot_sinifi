@@ -48,7 +48,7 @@ async def emojing(ctx):
 
 @bot.command()
 async def helping(ctx):
-    await ctx.send("hello = selam verir \nheh = verdiğiniz sayı kadar he yazar \npassword = verdiğiniz sayı kadar karaktere sahip şifre verir \nnumbering = rastgele sayı seçer verdiğiniz sayı ona eşitse tebrik eder \nemojing = rastgele emoji seçer \ntoss_up = yazı tura atar \ncolor_pick = girdiğiniz sayı kadar rastgele renk seçer \nhappybd = etiketlediğiniz kişinin doğum gününü kutlar \nmultip = verdiğiniz iki sayıyı çarpar")
+    await ctx.send("**HERKESİN KULLANACAĞI KOMUTLAR**\nhello = selam verir \nheh = verdiğiniz sayı kadar he yazar \npassword = verdiğiniz sayı kadar karaktere sahip şifre verir \nnumbering = rastgele sayı seçer verdiğiniz sayı ona eşitse tebrik eder \nemojing = rastgele emoji seçer \ntoss_up = yazı tura atar \ncolor_pick = girdiğiniz sayı kadar rastgele renk seçer \nhappybd = etiketlediğiniz kişinin doğum gününü kutlar \nmultip = verdiğiniz iki sayıyı çarpar \ncounting = verdiğin iki sayı arasından birini seçer \n------------------------------------------------------- \n**ÖZEL KOMUTLAR** \nkick = istenilen kişiyi atar")
 
     
 @bot.command()
@@ -85,14 +85,64 @@ async def multip(ctx, num1 = 0, num2 = 0):
     elif num1 < 1 or num2 < 1:
         await ctx.send("Bunu sen de yaparsın")
 
-    
 @bot.command()
-async def kick_it(ctx, person1 = "a"):
-    if len(person1) < 1:
-        await ctx.send("Böyle biri yok")
+async def kick(ctx, user: discord.Member):
+    if ctx.author.guild_permissions.kick_members:
+        await user.kick()
+        await ctx.send(f"{user.name} sunucudan atıldı!")
+    else:
+        await ctx.send("Bu işlemi yapmal için izniniz yok")
 
-    elif len(person1) > 1:
-        await ctx.send(f"/kick {person1}")
+
+@bot.event
+async def on_message(message):
+    if not message.author.bot: 
+        bannedwrd = ["Amk", "siktir", "sik", "yarrak", "am"]
+
+        for word in bannedwrd:
+            if word in message.content.lower(): 
+                await message.delete()
+                await message.channel.send(f"Küfür etmeyin {message.author.mention}")
+
+
+                privetchannel1 = await message.author.create_dm()
+                await privetchannel1.send("Lütfen yapmayın yoksa atılırsınız")
+
+    await bot.process_commands(message)
+
+@bot.command()
+async def counting(ctx, first = 0, end = 0):
+    mylist = list(range(first, end + 1))
+    picked = random.choice(mylist)
+    await ctx.send(picked)
+    await ctx.send(f"Umarım hata yapmamışımdır işte listen {mylist}")
+
+@bot.command()
+async def turnoff(ctx):
+    if bot.author.guild_permissions.kick_members:
+        await bot.user.kick()
+    else:
+        await ctx.send("Yetkiniz yok")
+
+@bot.command()
+async def add_role(ctx, role_name: str):
+    
+    if ctx.author.guild_permissions.kick_members:
+        role = discord.utils.get(ctx.guild.roles, name=role_name)
+
+        if role:
+            try:
+                await ctx.author.add_roles(role)
+                await ctx.send(f'{ctx.author.mention}, {role.name} rolü başarıyla eklendi.')
+            except Exception as e:
+                await ctx.send(f'Hata oluştu: {e}')
+        else:
+            await ctx.send('Belirtilen rol bulunamadı.')
+    else:
+        await ctx.send("Yetkiniz yok!")
+
+
+
 
 
 
