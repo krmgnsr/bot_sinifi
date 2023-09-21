@@ -1,0 +1,16 @@
+#This is the list of what this bot can do:
+#  1-its prefix is $
+#  2-$hello = says hello to message author
+#  3-$heh() = says he as much as you want
+#  4-$password() = makes a password for you the password has chaacters as much as you want
+#  5-$numbring() = you try to find the number it picked and you have just 1 chance
+#  6-$emojing = gives you a random emoji
+#  7-$toss_up = it tosses up
+#  8-$color_pick = it picks colors as much as you want
+#  9-$happybd(tag) = it wishes happy birth day to tagged person
+#  10-$multip( , ) = it multlies this two numbers
+#  11-$counting( , ) = it pick a random number between two number that you gave
+
+
+#    FOR ADMİNS
+#  1-$kick(tag) = kicks the person you tagged
